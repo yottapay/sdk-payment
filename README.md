@@ -2,13 +2,15 @@
 
 # Introduction
 
-This is repo for Yotta Digital Software Development Kit - Payment
+This is a repo for Yotta® Digital Software Development Kit - Payments
 
 ### What is this
 
-We offer simple, fast & secure OpenBanking based online payment processing service for UK.
+Yotta Pay® is the UK’s first ethical payment processor based on Open Banking technology.
 
-We also provide user authorization & authentication services for your website or applications.
+Yotta Pay® offers a three-click payment/authorisation via the client’s mobile banking app for your website or application.
+
+Yotta Pay® ethical payments™ are low cost, fast, secure, and require no plastic cards.
 
 [More info](https://yottapay.co.uk)
 
@@ -20,15 +22,15 @@ Just Java libs to make integration on system on your choice
 
 Yotta Payment SDK (You are here)
 
-[Yotta Auth SDK](https://github.com/yottapayment/sdk-auth)
+[Yotta Auth SDK](https://github.com/yottapay/sdk-auth)
 
 ### Spring-starter SDK:
 
 Client autoconfiguration, preferred for Spring Boot based applications
 
-[Yotta Payment SDK Spring Boot Starter](https://github.com/yottapayment/sdk-payment-spring-boot-starter)
+[Yotta Payment SDK Spring Boot Starter](https://github.com/yottapay/sdk-payment-spring-boot-starter)
 
-[Yotta Auth SDK Spring Boot Starter](https://github.com/yottapayment/sdk-payment-spring-boot-starter)
+[Yotta Auth SDK Spring Boot Starter](https://github.com/yottapay/sdk-payment-spring-boot-starter)
 
 # Quick start
 
@@ -52,7 +54,7 @@ allprojects {
 2. Add the dependency
 ```groovy
 //...
-implementation 'com.github.yottapayment:sdk-payment:master-SNAPSHOT'
+implementation 'com.github.yottapay:sdk-payment:master-SNAPSHOT'
 ```
 
 ### Maven
@@ -70,7 +72,7 @@ implementation 'com.github.yottapayment:sdk-payment:master-SNAPSHOT'
 2. Add the dependency
 ```xml
 <dependency>
-    <groupId>com.github.yottapayment</groupId>
+    <groupId>com.github.yottapay</groupId>
     <artifactId>sdk-payment</artifactId>
     <version>master-SNAPSHOT</version>
     <scope>compile</scope>
