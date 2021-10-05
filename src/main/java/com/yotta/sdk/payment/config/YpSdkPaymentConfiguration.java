@@ -66,7 +66,7 @@ public interface YpSdkPaymentConfiguration extends YpSdkConfiguration {
         public static final YpStringProperty SERVER_BASE_URL = new YpStringProperty(
                 propertyPath(PREFIX, "base-url"),
                 true,
-                "https://internal.yottapay.co.uk/launcher"
+                "https://prod.yottapay.co.uk/launcher"
         );
 
         public static final YpStringProperty MERCHANT_IDENTITY = new YpStringProperty(
