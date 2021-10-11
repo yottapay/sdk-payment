@@ -89,6 +89,18 @@ You better use client as Singleton
 YpSdkPayment sdkPayment = YpSdkPayment.createDefault(merchantId, merchantSecret);
 ```
 
+If you want to use sandbox environment:
+```
+YpSdkPaymentConfiguration configuration = YpSdkPaymentConfiguration.createDefault();
+
+configuration.setMerchantIdentity(merchantId);
+configuration.setSecret(merchantSecret);
+configuration.setServerBaseUrl("https://sandbox.yottapay.co.uk/launcher"); //Important! No trailing slash
+
+YpSdkPayment sdkPayment = YpSdkPayment.createFromConfiguration(configuration);
+
+```
+
 ### Creating orders for processing
 ```
 String myTransactionId = "123"; // your custom transaction id
