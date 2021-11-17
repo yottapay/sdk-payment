@@ -14,6 +14,9 @@ public class YpPaymentCreation {
     @JsonProperty("shop_transaction_identifier")
     private String merchantTransactionId;
 
+    @JsonProperty("order_reference")
+    private String reference;
+
     @JsonProperty("customer_identifier")
     private String customerId;
 
@@ -35,10 +38,11 @@ public class YpPaymentCreation {
     @JsonProperty("yotta_notification_id")
     private String notificationId;
 
-    YpPaymentCreation(String merchantTransactionId, String customerId,
+    YpPaymentCreation(String merchantTransactionId, String reference, String customerId,
                       String amount, String currency, String urlPaymentResult,
                       String urlPaymentSuccess, String urlPaymentCancel, String notificationId) {
         this.merchantTransactionId = merchantTransactionId;
+        this.reference = reference;
         this.customerId = customerId;
         this.amount = amount;
         this.currency = currency;
@@ -49,7 +53,9 @@ public class YpPaymentCreation {
     }
 
     protected YpPaymentCreation(YpPaymentCreation other) {
-        this(other.merchantTransactionId,
+        this(
+                other.merchantTransactionId,
+                other.reference,
                 other.customerId,
                 other.amount,
                 other.currency,
@@ -64,7 +70,9 @@ public class YpPaymentCreation {
 
         public YpPaymentCreation build() {
 
-            return new YpPaymentCreation(validateNotEmpty(merchantTransactionId, "merchantTransactionId is required"),
+            return new YpPaymentCreation(
+                    validateNotEmpty(merchantTransactionId, "merchantTransactionId is required"),
+                    makeNotNull(reference),
                     validateNotEmpty(customerId, "customerId is required"),
                     validateNotEmpty(amount, "amount is required"),
                     validateNotEmpty(currency, "currency is required"),
@@ -90,6 +98,13 @@ public class YpPaymentCreation {
 
         private <T> T validateNotNull(T object, String message) {
             return Objects.requireNonNull(object, message);
+        }
+
+        private String makeNotNull(String s) {
+            if(s == null) {
+                return "";
+            }
+            return s;
         }
 
         private String validateNotEmpty(String object, String message) {

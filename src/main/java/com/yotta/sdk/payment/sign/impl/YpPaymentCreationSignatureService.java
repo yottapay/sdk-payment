@@ -23,6 +23,7 @@ public class YpPaymentCreationSignatureService extends YpAbstractSignatureServic
     public @NotNull String encodeSignature(@NotNull YpPaymentCreation object) {
         return getSignatureEncoder().encodeSignature(
                 object.getMerchantTransactionId(),
+                object.getReference(),
                 getMerchantIdentity(),
                 object.getCustomerId(),
                 object.getAmount(),
