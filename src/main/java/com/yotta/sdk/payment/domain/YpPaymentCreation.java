@@ -1,6 +1,7 @@
 package com.yotta.sdk.payment.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.primitives.Longs;
 import lombok.Builder;
 import lombok.Data;
 
@@ -23,6 +24,9 @@ public class YpPaymentCreation {
     @JsonProperty("amount")
     private String amount;
 
+    @JsonProperty("duration")
+    private String duration;
+
     @JsonProperty("currency")
     private String currency;
 
@@ -39,12 +43,13 @@ public class YpPaymentCreation {
     private String notificationId;
 
     YpPaymentCreation(String merchantTransactionId, String reference, String customerId,
-                      String amount, String currency, String urlPaymentResult,
+                      String amount, String duration, String currency, String urlPaymentResult,
                       String urlPaymentSuccess, String urlPaymentCancel, String notificationId) {
         this.merchantTransactionId = merchantTransactionId;
         this.reference = reference;
         this.customerId = customerId;
         this.amount = amount;
+        this.duration = duration;
         this.currency = currency;
         this.urlPaymentResult = urlPaymentResult;
         this.urlPaymentSuccess = urlPaymentSuccess;
@@ -58,6 +63,7 @@ public class YpPaymentCreation {
                 other.reference,
                 other.customerId,
                 other.amount,
+                other.duration,
                 other.currency,
                 other.urlPaymentResult,
                 other.urlPaymentSuccess,
@@ -75,6 +81,7 @@ public class YpPaymentCreation {
                     makeNotNull(reference),
                     validateNotEmpty(customerId, "customerId is required"),
                     validateNotEmpty(amount, "amount is required"),
+                    makeAtLeastZero(duration),
                     validateNotEmpty(currency, "currency is required"),
                     validateNotEmpty(urlPaymentResult, "urlPaymentResult is required"),
                     validateNotEmpty(urlPaymentSuccess, "urlPaymentSuccess is required"),
@@ -103,6 +110,16 @@ public class YpPaymentCreation {
         private String makeNotNull(String s) {
             if(s == null) {
                 return "";
+            }
+            return s;
+        }
+
+        private String makeAtLeastZero(String s) {
+            if(s == null) {
+                return "0";
+            }
+            if(Longs.tryParse(s) == null) {
+                return "0";
             }
             return s;
         }

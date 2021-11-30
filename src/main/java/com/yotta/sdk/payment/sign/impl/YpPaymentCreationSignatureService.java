@@ -27,6 +27,7 @@ public class YpPaymentCreationSignatureService extends YpAbstractSignatureServic
                 getMerchantIdentity(),
                 object.getCustomerId(),
                 object.getAmount(),
+                object.getDuration(),
                 object.getCurrency(),
                 object.getUrlPaymentResult(),
                 object.getUrlPaymentSuccess(),
