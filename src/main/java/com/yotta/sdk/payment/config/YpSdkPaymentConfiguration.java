@@ -9,7 +9,7 @@ import static com.yotta.sdk.core.config.YpSdkConfiguration.propertyPath;
 
 public interface YpSdkPaymentConfiguration extends YpSdkConfiguration {
 
-    String SDK_NAME = "Yotta Pay SDK (Payments) (0.0.1)";
+    String SDK_NAME = "Yotta Pay SDK (Payments) (1.0.4)";
 
     static YpSdkPaymentConfiguration createDefault() {
         return new YpSdkPaymentConfigurationImpl();
@@ -54,10 +54,22 @@ public interface YpSdkPaymentConfiguration extends YpSdkConfiguration {
         return PaymentProperties.ENDPOINT_CREATE_PAYMENT.get(this);
     }
 
+    @NotNull(exception = YpRequiredPropertyException.class)
+    default String getCreateRefundEndpoint()
+            throws YpRequiredPropertyException {
+        return PaymentProperties.ENDPOINT_CREATE_REFUND.get(this);
+    }
+
     default void setCreatePaymentEndpoint(
             @NotNull(exception = YpRequiredPropertyException.class) String createPaymentEndpoint)
             throws YpRequiredPropertyException {
         PaymentProperties.ENDPOINT_CREATE_PAYMENT.set(this, createPaymentEndpoint);
+    }
+
+    default void setCreateRefundEndpoint(
+            @NotNull(exception = YpRequiredPropertyException.class) String createRefundEndpoint)
+            throws YpRequiredPropertyException {
+        PaymentProperties.ENDPOINT_CREATE_REFUND.set(this, createRefundEndpoint);
     }
 
     class PaymentProperties {
@@ -83,6 +95,12 @@ public interface YpSdkPaymentConfiguration extends YpSdkConfiguration {
                 propertyPath(PREFIX, "endpoint.create-payment"),
                 true,
                 "/shop/paymentgateway/new"
+        );
+
+        public static final YpStringProperty ENDPOINT_CREATE_REFUND = new YpStringProperty(
+                propertyPath(PREFIX, "endpoint.create-refund"),
+                true,
+                "/shop/paymentgateway/refund"
         );
     }
 }

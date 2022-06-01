@@ -53,7 +53,7 @@ allprojects {
 2. Add the dependency
 ```groovy
 //...
-implementation 'com.github.yottapay:sdk-payment:v1.0.3'
+implementation 'com.github.yottapay:sdk-payment:v1.0.4'
 ```
 
 ### Maven
@@ -73,7 +73,7 @@ implementation 'com.github.yottapay:sdk-payment:v1.0.3'
 <dependency>
     <groupId>com.github.yottapay</groupId>
     <artifactId>sdk-payment</artifactId>
-    <version>v1.0.3</version>
+    <version>v1.0.4</version>
     <scope>compile</scope>
 </dependency>
 ```
@@ -123,6 +123,25 @@ The returned object (`YpPaymentCreationResult`) consists of two fields:
 `yottaTransactionId`, which is our transaction ID for the payment.
 
 Please notice that `currency` is restricted to `GBP`. `notificationId` is reserved and should be set to empty string and be not null.
+
+### Creating order refund
+
+User may want to request refund on paid order. You are required to prompt user for refunding information (bank identifications) and make a refund reqeust like this:
+
+```
+YpRefundCreation refund = YpRefundCreation.builder()
+                                         .urlPaymentRefundResult("https://your.store.com/refund") // you will receive webhook here once refund transaction is completed
+                                         .receiverAccNumber("889965") // where to refund for payment
+                                         .receiverSortCode("440005") // receiver sort code
+                                         .receiverComment("I have changed my mind") // buyer's comment on refund
+                                         .receiverFullName("Guy Hawkins") // buyer's bank account name
+                                         .yottaTransactionId("YPR-123") // Yotta transaction id you received upon order creation
+                                         .build();
+
+sdk.createRefundRequest(refund);
+```
+
+If for some reason (no transaction, order incomplete, already refunded etc.) order cannot be refunded you will receive a error message in response.
 
 ### Handling webhooks
 

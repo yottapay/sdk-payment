@@ -3,13 +3,14 @@ package com.yotta.sdk.payment;
 import com.yotta.sdk.core.service.YpCloseableHttpClientSupplierService;
 import com.yotta.sdk.core.service.YpObjectMapperService;
 import com.yotta.sdk.payment.config.YpSdkPaymentConfiguration;
-import com.yotta.sdk.payment.domain.YpPaymentCreation;
-import com.yotta.sdk.payment.domain.YpPaymentCreationResult;
-import com.yotta.sdk.payment.domain.YpPaymentExecutionStatusChangedRequest;
+import com.yotta.sdk.payment.domain.*;
 import com.yotta.sdk.payment.req.YpPaymentCreationHttpRequest;
+import com.yotta.sdk.payment.req.YpRefundCreationHttpRequest;
 import com.yotta.sdk.payment.sign.YpSignatureEncoder;
 import com.yotta.sdk.payment.sign.impl.YpPaymentCreationSignatureService;
 import com.yotta.sdk.payment.sign.impl.YpPaymentExecutionStatusChangedSignatureService;
+import com.yotta.sdk.payment.sign.impl.YpRefundCreationSignatureService;
+import com.yotta.sdk.payment.sign.impl.YpRefundStatusChangedSignatureService;
 import org.jetbrains.annotations.NotNull;
 
 public interface YpSdkPayment {
@@ -28,6 +29,7 @@ public interface YpSdkPayment {
 
         String serverBaseUrl = configuration.getServerBaseUrl();
         String createPaymentEndpoint = configuration.getCreatePaymentEndpoint();
+        String createRefundEndpoint = configuration.getCreateRefundEndpoint();
 
 
         YpSignatureEncoder signatureEncoder = YpSignatureEncoder.DEFAULT;
@@ -46,7 +48,25 @@ public interface YpSdkPayment {
                                 signatureEncoder
                         )
                 ),
+
+                new YpRefundCreationHttpRequest(
+                        serverBaseUrl + createRefundEndpoint,
+                        objectMapperService,
+                        clientSupplierService,
+                        merchantIdentity,
+                        new YpRefundCreationSignatureService(
+                                merchantIdentity,
+                                secret,
+                                signatureEncoder
+                        )
+                ),
+
                 new YpPaymentExecutionStatusChangedSignatureService(
+                        secret,
+                        signatureEncoder
+                ),
+
+                new YpRefundStatusChangedSignatureService(
                         secret,
                         signatureEncoder
                 )
@@ -55,5 +75,9 @@ public interface YpSdkPayment {
 
     @NotNull YpPaymentCreationResult createPayment(@NotNull YpPaymentCreation payment);
 
+    @NotNull YpRefundCreationResult createRefundRequest(@NotNull YpRefundCreation refundCreation);
+
     boolean checkSignature(@NotNull YpPaymentExecutionStatusChangedRequest paymentExecutionStatusChanged);
+
+    boolean checkSignature(@NotNull YpRefundStatusChangedRequest refundStatusChangedRequest);
 }
