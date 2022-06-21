@@ -10,4 +10,7 @@ public class YpPaymentCreationResult {
 
     @JsonProperty("yottapay_transaction_identifier")
     private String yottaTransactionId;
+
+    @JsonProperty("qr_code_url")
+    private String qrCodeUrl;
 }
