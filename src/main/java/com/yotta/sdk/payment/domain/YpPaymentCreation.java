@@ -42,9 +42,12 @@ public class YpPaymentCreation {
     @JsonProperty("yotta_notification_id")
     private String notificationId;
 
+    @JsonProperty("terminal_code")
+    private String terminalCode;
+
     YpPaymentCreation(String merchantTransactionId, String reference, String customerId,
                       String amount, String duration, String currency, String urlPaymentResult,
-                      String urlPaymentSuccess, String urlPaymentCancel, String notificationId) {
+                      String urlPaymentSuccess, String urlPaymentCancel, String notificationId, String terminalCode) {
         this.merchantTransactionId = merchantTransactionId;
         this.reference = reference;
         this.customerId = customerId;
@@ -55,6 +58,7 @@ public class YpPaymentCreation {
         this.urlPaymentSuccess = urlPaymentSuccess;
         this.urlPaymentCancel = urlPaymentCancel;
         this.notificationId = notificationId;
+        this.terminalCode = terminalCode;
     }
 
     protected YpPaymentCreation(YpPaymentCreation other) {
@@ -68,7 +72,8 @@ public class YpPaymentCreation {
                 other.urlPaymentResult,
                 other.urlPaymentSuccess,
                 other.urlPaymentCancel,
-                other.notificationId);
+                other.notificationId,
+                other.terminalCode);
     }
 
     public static class YpPaymentCreationBuilder {
@@ -86,13 +91,15 @@ public class YpPaymentCreation {
                     validateNotEmpty(urlPaymentResult, "urlPaymentResult is required"),
                     validateNotEmpty(urlPaymentSuccess, "urlPaymentSuccess is required"),
                     validateNotEmpty(urlPaymentCancel, "urlPaymentCancel is required"),
-                    notificationId);
+                    notificationId,
+                    makeNotNull(terminalCode));
         }
 
         public YpPaymentCreationBuilder amount(String amount) {
             this.amount = amount;
             return this;
         }
+
 
         public YpPaymentCreationBuilder amount(long amount) {
             String amountStr = BigDecimal.valueOf(amount)

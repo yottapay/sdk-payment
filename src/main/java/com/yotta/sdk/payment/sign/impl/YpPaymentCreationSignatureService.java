@@ -6,6 +6,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class YpPaymentCreationSignatureService extends YpAbstractSignatureService<YpPaymentCreation> {
 
+    public static YpPaymentCreationSignatureService createDefault(String merchantId, String secret) {
+        return new YpPaymentCreationSignatureService(
+                merchantId,
+                secret,
+                YpSignatureEncoder.DEFAULT
+        );
+    }
+
     private final String merchantIdentity;
 
     public YpPaymentCreationSignatureService(String merchantIdentity,
@@ -33,6 +41,7 @@ public class YpPaymentCreationSignatureService extends YpAbstractSignatureServic
                 object.getUrlPaymentSuccess(),
                 object.getUrlPaymentCancel(),
                 object.getNotificationId(),
+                object.getTerminalCode(),
                 getSecret()
         );
     }
