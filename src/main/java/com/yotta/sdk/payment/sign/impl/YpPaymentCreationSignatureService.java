@@ -42,6 +42,7 @@ public class YpPaymentCreationSignatureService extends YpAbstractSignatureServic
                 object.getUrlPaymentCancel(),
                 object.getNotificationId(),
                 object.getTerminalCode(),
+                object.getCancellationUrl(),
                 getSecret()
         );
     }
