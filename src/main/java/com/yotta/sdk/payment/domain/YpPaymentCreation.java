@@ -48,9 +48,12 @@ public class YpPaymentCreation {
     @JsonProperty("cancellation_url")
     private String cancellationUrl;
 
+    @JsonProperty("terminal_preview")
+    private String terminalPreviewUrl;
+
     YpPaymentCreation(String merchantTransactionId, String reference, String customerId,
                       String amount, String duration, String currency, String urlPaymentResult,
-                      String urlPaymentSuccess, String urlPaymentCancel, String notificationId, String terminalCode, String cancellationUrl) {
+                      String urlPaymentSuccess, String urlPaymentCancel, String notificationId, String terminalCode, String cancellationUrl, String terminalPreviewUrl) {
         this.merchantTransactionId = merchantTransactionId;
         this.reference = reference;
         this.customerId = customerId;
@@ -63,6 +66,7 @@ public class YpPaymentCreation {
         this.notificationId = notificationId;
         this.terminalCode = terminalCode;
         this.cancellationUrl = cancellationUrl;
+        this.terminalPreviewUrl = terminalPreviewUrl;
     }
 
     protected YpPaymentCreation(YpPaymentCreation other) {
@@ -78,7 +82,8 @@ public class YpPaymentCreation {
                 other.urlPaymentCancel,
                 other.notificationId,
                 other.terminalCode,
-                other.cancellationUrl);
+                other.cancellationUrl,
+                other.terminalPreviewUrl);
     }
 
     public static class YpPaymentCreationBuilder {
@@ -98,7 +103,8 @@ public class YpPaymentCreation {
                     validateNotEmpty(urlPaymentCancel, "urlPaymentCancel is required"),
                     notificationId,
                     makeNotNull(terminalCode),
-                    makeNotNull(cancellationUrl));
+                    makeNotNull(cancellationUrl),
+                    makeNotNull(terminalPreviewUrl));
         }
 
         public YpPaymentCreationBuilder amount(String amount) {
