@@ -26,6 +26,9 @@ public class YpPaymentExecutionStatusChangedRequest implements HasSignature<YpPa
     @JsonProperty("loyalty_amount")
     private String loyaltyAmount;
 
+    @JsonProperty("discount_amount")
+    private String discountAmount;
+
     @JsonProperty("currency")
     private String currency = "GBP";
 
